@@ -1125,6 +1125,7 @@ defmodule Mariaex.Protocol do
   defp password("", password, salt),                  do: mysql_native_password(password, salt)
   defp password(@mysql_clear_password <> _, password, _),  do: password <> <<0>>
   defp password(@mysql_old_password, password, salt), do: mysql_old_password(password, salt)
+  defp password("mysql_old_password", password, salt), do: mysql_old_password(password, salt)
 
   defp caching_sha2_password(password, salt) do
     stage1 = :crypto.hash(:sha256, password)
